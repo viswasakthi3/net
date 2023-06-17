@@ -1,18 +1,26 @@
 {
   "manifest_version": 3,
-  "name": "Netflix Shakti API Extension",
+  "name": "Netflix Viewing History",
   "version": "1.0",
+  "description": "Fetch Netflix viewing history and send data to API",
+  "permissions": ["activeTab", "scripting"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
   },
-  "permissions": ["https://www.netflix.com/*"],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
   "content_scripts": [
     {
-      "matches": ["https://www.netflix.com/*"],
-      "js": ["https://code.jquery.com/jquery-3.6.0.min.js", "content_script.js"]
+      "matches": ["*://www.netflix.com/*"],
+      "js": ["content.js"]
     }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  }
+  ]
 }
