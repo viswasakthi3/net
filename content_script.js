@@ -23,7 +23,8 @@ if (window.location.hostname === "www.netflix.com") {
         })
         .then((data) => {
           console.log("Viewing activity data:", data);
-          chrome.runtime.sendMessage({
+          // Use chrome.extension.sendMessage instead of chrome.runtime.sendMessage
+          chrome.extension.sendMessage({
             message: "viewing_activity_data",
             data: data,
           });
