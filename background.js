@@ -1,3 +1,23 @@
+chrome.action.onClicked.addListener(async (tab) => {
+  const tabId = tab.id;
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    files: ["content.js"],
+  });
+});
+
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+  if (message.action === "fetchData") {
+    const response = await fetch("https://www.netflix.com/WiViewingActivity");
+    const data = await response.text();
+    console.log("Viewing activity data:", data);
+    const historyData = processViewingHistory(data);
+    sendDataToApi(historyData);
+    sendResponse({ success: true });
+  }
+  return true;
+});
+
 function processViewingHistory(data) {
   let viewingHistory = {};
 
@@ -39,15 +59,3 @@ async function sendDataToApi(historyData) {
   const result = await response.text();
   console.log(result);
 }
-
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-  if (message.action === "fetchData") {
-    const data = await fetch("https://www.netflix.com/WiViewingActivity").then(
-      (response) => response.text()
-    );
-    const historyData = processViewingHistory(data);
-    sendDataToApi(historyData);
-    sendResponse({ success: true });
-  }
-  return true;
-});
