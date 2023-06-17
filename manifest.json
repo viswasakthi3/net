@@ -3,7 +3,20 @@
   "name": "Netflix Viewing History",
   "version": "1.0",
   "description": "Fetch Netflix viewing history and send data to API",
-  "permissions": ["activeTab", "scripting"],
+  {
+    "permissions": [
+      "webRequest",
+      "webRequestBlocking",
+      "tabs",
+      "activeTab",
+      "<all_urls>"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["*://*.netflix.com/*"],
+        "js": ["content.js"]
+      }
+    ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
