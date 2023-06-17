@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Netflix Shakti API Extension",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": ["https://www.netflix.com/*"],
+  "permissions": ["scripting"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.netflix.com/*"],
+      "js": ["content_script.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
