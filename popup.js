@@ -5,8 +5,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       files: ["content_script.js"],
     },
     function () {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
+      chrome.runtime.sendMessage(
         { message: "fetch_shakti_api_data" },
         function (response) {
           if (response) {

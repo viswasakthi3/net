@@ -23,7 +23,10 @@ if (window.location.hostname === "www.netflix.com") {
         })
         .then((data) => {
           console.log("Viewing activity data:", data);
-          window.viewingActivityData = data;
+          chrome.runtime.sendMessage({
+            message: "viewing_activity_data",
+            data: data,
+          });
         })
         .catch((error) => {
           console.error("Error fetching viewing activity:", error);
